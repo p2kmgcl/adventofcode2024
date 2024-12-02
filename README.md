@@ -1,1 +1,2 @@
-https://adventofcode.com/2024/about
+- https://adventofcode.com/2024/about
+- https://github.com/denoland/advent-of-code-2024
