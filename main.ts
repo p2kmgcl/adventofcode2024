@@ -32,7 +32,7 @@ for (let i = 1; i <= 24; i++) {
 
   for (const part of [1, 2]) {
     for (const variation of ["sample", "input"]) {
-      const fileName = `./day${day}.${variation}.txt`;
+      const fileName = `./day${day}.${variation}${part}.txt`;
       const functionName = `getPart${part}Solution`;
       const solutionName = `${variation}Solution`;
       const testName = `Day ${day} Part ${part} ${variation}`.padEnd(
