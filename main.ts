@@ -1,9 +1,9 @@
-import { assertEquals } from "@std/assert";
+import { assertEquals } from '@std/assert';
 
 const LINE_LENGTH = 25;
 
 export function readFile(filePath: string) {
-  const decoder = new TextDecoder("utf8");
+  const decoder = new TextDecoder('utf8');
   const data = Deno.readFileSync(filePath);
   return decoder.decode(data).trim();
 }
@@ -18,26 +18,22 @@ export function fileExists(filePath: string) {
 }
 
 for (let i = 1; i <= 24; i++) {
-  const day = i.toString().padStart(2, "0");
+  const day = i.toString().padStart(2, '0');
 
   if (!fileExists(`./day${day}.ts`)) {
-    console.log(
-      `Day ${day}`.padEnd(LINE_LENGTH, " "),
-      `⏭️ (missing day${day}.ts file)`,
-    );
     continue;
   }
 
   const module = await import(`./day${day}.ts`);
 
   for (const part of [1, 2]) {
-    for (const variation of ["sample", "input"]) {
+    for (const variation of ['sample', 'input']) {
       const fileName = `./day${day}.${variation}${part}.txt`;
       const functionName = `getPart${part}Solution`;
       const solutionName = `${variation}Solution`;
       const testName = `Day ${day} Part ${part} ${variation}`.padEnd(
         LINE_LENGTH,
-        " ",
+        ' ',
       );
 
       if (!fileExists(fileName)) {
@@ -64,10 +60,10 @@ for (let i = 1; i <= 24; i++) {
       const expected = module[functionName][solutionName];
 
       try {
-        assertEquals(expected, actual);
-        console.log(testName, "✅", ` (in ${(end - begin).toFixed(2)}ms)`);
+        assertEquals(actual, expected);
+        console.log(testName, '✅', ` (in ${(end - begin).toFixed(2)}ms)`);
       } catch (error) {
-        console.log(testName, "💥");
+        console.log(testName, '💥');
         console.error(error);
       }
     }
