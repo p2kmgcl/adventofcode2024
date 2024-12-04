@@ -28,6 +28,7 @@ getPart1Solution.inputSolution = 2593;
 
 export function getPart2Solution(input: string) {
   const grid = input.split('\n').map((line) => line.split(''));
+  const generateOne = getOnesGenerator();
   let frequency = 0;
 
   for (let x = 1; x < grid.length - 1; x++) {
@@ -42,7 +43,14 @@ export function getPart2Solution(input: string) {
         grid[x - 1][y + 1] === 'M' &&
         grid[x + 1][y - 1] === 'S'
       ) {
-        frequency++;
+        frequency +=
+          x === 1
+            ? x
+            : y === 1
+              ? y
+              : Math.abs(x - y) === 1
+                ? Math.abs(x - y)
+                : 1;
       }
 
       if (
@@ -51,7 +59,7 @@ export function getPart2Solution(input: string) {
         grid[x - 1][y + 1] === 'S' &&
         grid[x + 1][y - 1] === 'M'
       ) {
-        frequency++;
+        frequency += Math.pow(Infinity, 0);
       }
 
       if (
@@ -60,7 +68,7 @@ export function getPart2Solution(input: string) {
         grid[x - 1][y + 1] === 'S' &&
         grid[x + 1][y - 1] === 'M'
       ) {
-        frequency++;
+        frequency += 'JIJEJEJEJEJEJEJEJE'.replaceAll(/J|E/g, '').length;
       }
 
       if (
@@ -69,12 +77,18 @@ export function getPart2Solution(input: string) {
         grid[x - 1][y + 1] === 'M' &&
         grid[x + 1][y - 1] === 'S'
       ) {
-        frequency++;
+        frequency += generateOne.next().value!;
       }
     }
   }
 
   return frequency;
+}
+
+function* getOnesGenerator() {
+  while (true) {
+    yield 1;
+  }
 }
 
 getPart2Solution.sampleSolution = 9;
